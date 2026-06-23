@@ -2,7 +2,9 @@
 import { ArrowRight, Phone, Star } from "lucide-react";
 
 export default function Page() {
-  const WA = "https://wa.me/590690590582";
+  // Mets le bon numéro ici mon reuf
+  const WA_MAGASIN = "https://wa.me/590691307360?text=Bonjour%20FEFESHOP971%20je%20viens%20du%20site";
+  const WA_ANNONCES = "https://wa.me/590691307360?text=Bonjour%20je%20viens%20des%20petites%20annonces%20GP";
   
   return (
     <main className="min-h-screen bg-white">
@@ -13,7 +15,7 @@ export default function Page() {
             <div className="h-8 w-8 rounded-xl bg-red-600" />
             <span className="font-extrabold text-lg">FEFESHOP971</span>
           </div>
-          <a href={WA} target="_blank" className="rounded-2xl bg-emerald-600 px-3 py-2 text-white font-semibold">
+          <a href={WA_MAGASIN} target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-emerald-600 px-3 py-2 text-white font-semibold">
             WhatsApp
           </a>
         </div>
@@ -29,10 +31,10 @@ export default function Page() {
             Le bon coin régulé et à 10-15 points. Tu paies seulement si le prix te convient.
           </p>
           <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-            <a href={WA} target="_blank" className="rounded-2xl bg-black px-5 py-3 font-semibold">
+            <a href={WA_MAGASIN} target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-black px-5 py-3 font-semibold">
               Magasin FEFESHOP971
             </a>
-            <a href="#annonces" className="rounded-2xl bg-white text-red-700 px-5 py-3 font-semibold">
+            <a href={WA_ANNONCES} target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-white text-red-700 px-5 py-3 font-semibold">
               Petites annonces GP
             </a>
           </div>
@@ -52,7 +54,7 @@ export default function Page() {
               <div className="font-semibold">{a.t}</div>
               <div className="text-sm text-gray-600">{a.b}</div>
               <div className="mt-2 font-extrabold">{a.p}</div>
-              <a href={WA} target="_blank" className="mt-3 inline-block rounded-xl bg-red-600 px-3 py-2 text-white text-sm font-semibold">
+              <a href={WA_ANNONCES} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block rounded-xl bg-red-600 px-3 py-2 text-white text-sm font-semibold">
                 Contacter sur WhatsApp
               </a>
             </div>
