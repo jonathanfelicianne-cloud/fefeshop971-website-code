@@ -1,137 +1,205 @@
 'use client'
 
-import { ShoppingCart, Megaphone, Users, Truck, Shield } from 'lucide-react'
+import React, { useState } from 'react';
+import { ShoppingCart, Megaphone, Users, Truck, Shield, MessageCircle } from 'lucide-react';
 
 export default function Home() {
-  const whatsappNumber = '590690590582' // ← METS TON NUMÉRO ICI
-
-  const ads = [
+  const [ads, setAds] = useState([
     {
       id: 1,
-      title: 'iPhone 13 Pro 256Go',
-      price: '750€',
-      image: 'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=400',
-      description: 'État neuf, batterie 98%. Facture et boîte.'
+      title: "iPhone 13 Pro Max 256Go",
+      price: "750€",
+      description: "Excellent état, batterie 89%, avec boîte et chargeur",
+      whatsapp: "59069050582",
+      date: "21/09/2026"
     },
     {
       id: 2,
-      title: 'Canapé d\'angle gris',
-      price: '320€',
-      image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400',
-      description: 'Très bon état. À récupérer à Baie-Mahault.'
+      title: "Canapé d'angle convertible",
+      price: "400€",
+      description: "Gris, très bon état, 3 places + méridienne",
+      whatsapp: "59069050582",
+      date: "20/09/2026"
     },
     {
       id: 3,
-      title: 'Vélo VTT Decathlon',
-      price: '180€',
-      image: 'https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?w=400',
-      description: '27.5 pouces. Peu servi. Révisé.'
+      title: "VTT Décathlon Rockrider ST540",
+      price: "180€",
+      description: "Taille L, peu servi, révisé",
+      whatsapp: "59069050582",
+      date: "19/09/2026"
     }
-  ]
+  ]);
 
-  const openWhatsApp = (message: string) => {
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank')
-  }
+  const [formData, setFormData] = useState({
+    title: "",
+    price: "",
+    description: "",
+    whatsapp: ""
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newAd = {
+      id: ads.length + 1,
+      ...formData,
+      date: new Date().toLocaleDateString('fr-FR')
+    };
+    setAds([newAd, ...ads]);
+    setFormData({ title: "", price: "", description: "", whatsapp: "" });
+    alert("Annonce envoyée ! Elle sera publiée après validation.");
+  };
+
+  const openWhatsApp = (number: string, message: string) => {
+    window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`, '_blank');
+  };
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm sticky top-0 z-50">
+    <div className="min-h-screen bg-black text-white">
+      <div className="bg-black border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-          <h1 className="text-2xl font-black text-red-600">FEFESHOP971</h1>
+          <div className="text-xl font-bold">
+            <span className="text-red-600">FEFE</span>SHOP971
+          </div>
           <button 
-            onClick={() => openWhatsApp('Bonjour FEFESHOP971, j\'ai une question')}
-            className="bg-green-500 text-white px-4 py-2 rounded-full font-bold flex items-center gap-2"
+            onClick={() => openWhatsApp('59069050582', 'Bonjour FEFESHOP971')}
+            className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-full flex items-center gap-2 font-semibold"
           >
+            <MessageCircle size={18} />
             WhatsApp
           </button>
         </div>
-      </header>
+      </div>
 
-      <section className="bg-white py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-6xl font-black mb-4">
-            Je trouve tout <span className="text-red-600">moins cher</span> en Guadeloupe
-          </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Livraison rapide en 8 à 15 jours. Tu paies seulement si le prix te convient.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => openWhatsApp('Bonjour, je veux commander sur le Magasin FEFESHOP971')}
-              className="bg-red-600 text-white px-8 py-4 rounded-lg font-bold text-lg flex items-center justify-center gap-2"
-            >
-              <ShoppingCart size={20} /> Magasin FEFESHOP971
-            </button>
-            <button 
-              onClick={() => openWhatsApp('Bonjour, je veux poster une annonce sur Petites annonces GP')}
-              className="bg-blue-600 text-white px-8 py-4 rounded-lg font-bold text-lg flex items-center justify-center gap-2"
-            >
-              <Megaphone size={20} /> Petites annonces GP
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 px-4">
-        <div className="max-w-4xl mx-auto grid grid-cols-3 gap-4 text-center">
-          <div className="bg-white p-6 rounded-xl shadow">
-            <Users className="mx-auto text-red-600 mb-2" size={32} />
-            <div className="text-2xl font-black">500+</div>
-            <div className="text-gray-600">clients satisfaits</div>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow">
-            <Truck className="mx-auto text-red-600 mb-2" size={32} />
-            <div className="text-2xl font-black">8-15 j</div>
-            <div className="text-gray-600">délai respecté</div>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow">
-            <Shield className="mx-auto text-red-600 mb-2" size={32} />
-            <div className="text-2xl font-black">100%</div>
-            <div className="text-gray-600">paiement sécurisé</div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 px-4 bg-white">
+      <div className="bg-red-600 text-center py-4 px-4">
         <div className="max-w-6xl mx-auto">
-          <h3 className="text-3xl font-black text-center mb-8">Dernières annonces</h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            {ads.map((ad) => (
-              <div key={ad.id} className="bg-gray-50 rounded-xl overflow-hidden shadow-lg">
-                <img src={ad.image} alt={ad.title} className="w-full h-48 object-cover" />
-                <div className="p-4">
-                  <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-bold text-lg">{ad.title}</h4>
-                    <span className="bg-red-600 text-white px-3 py-1 rounded-full font-bold">{ad.price}</span>
-                  </div>
-                  <p className="text-gray-600 text-sm mb-4">{ad.description}</p>
-                  <button 
-                    onClick={() => openWhatsApp(`Bonjour, je suis intéressé par l'annonce : ${ad.title} à ${ad.price}`)}
-                    className="w-full bg-green-500 text-white py-2 rounded-lg font-bold"
-                  >
-                    Contacter sur WhatsApp
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <button 
-              onClick={() => openWhatsApp('Bonjour, je veux voir toutes les petites annonces GP')}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold"
-            >
-              Voir toutes les annonces
-            </button>
-          </div>
+          <p className="font-bold text-lg">Louez cet espace 50€/mois — visible par toute la Guadeloupe</p>
+          <button 
+            onClick={() => openWhatsApp('59069050582', 'Je veux réserver la bannière FEFESHOP971 à 50€/mois')}
+            className="bg-black hover:bg-gray-900 px-6 py-2 rounded-full mt-2 font-semibold flex items-center gap-2 mx-auto"
+          >
+            <MessageCircle size={18} />
+            Réserver
+          </button>
         </div>
-      </section>
+      </div>
 
-      <footer className="bg-black text-white py-8 px-4 mt-12">
-        <div className="max-w-6xl mx-auto text-center">
-          <h3 className="text-xl font-black mb-2">FEFESHOP971</h3>
-          <p className="text-gray-400 text-sm">CGV Mandataire • Guadeloupe • 2026</p>
+      <div className="max-w-6xl mx-auto px-4 py-12 text-center">
+        <div className="inline-block bg-gray-800 px-4 py-1 rounded-full text-sm mb-4">
+          Guadeloupe • Mandataire d'achat
         </div>
-      </footer>
-    </main>
-  )
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">
+          Je trouve tout <span className="text-red-600">moins cher</span> en Guadeloupe
+        </h1>
+        <p className="text-gray-400 text-lg mb-8">
+          Livraison rapide en 8 à 15 jours. Tu paies seulement si le prix te convient.
+        </p>
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <button 
+            onClick={() => openWhatsApp('59069050582', 'Bonjour, je veux commander sur FEFESHOP971')}
+            className="bg-red-600 hover:bg-red-700 px-8 py-4 rounded-lg font-bold text-lg flex items-center gap-2 justify-center"
+          >
+            <ShoppingCart size={20} />
+            Magasin FEFESHOP971
+          </button>
+          <button className="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-bold text-lg flex items-center gap-2 justify-center">
+            <Megaphone size={20} />
+            Petites annonces GP
+          </button>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto mb-16">
+          <div className="bg-gray-900 p-4 rounded-lg">
+            <Users className="mx-auto mb-2 text-red-600" size={24} />
+            <div className="font-bold text-xl">500+</div>
+            <div className="text-gray-400 text-sm">clients satisfaits</div>
+          </div>
+          <div className="bg-gray-900 p-4 rounded-lg">
+            <Truck className="mx-auto mb-2 text-red-600" size={24} />
+            <div className="font-bold text-xl">8-15 j</div>
+            <div className="text-gray-400 text-sm">délai respecté</div>
+          </div>
+          <div className="bg-gray-900 p-4 rounded-lg">
+            <Shield className="mx-auto mb-2 text-red-600" size={24} />
+            <div className="font-bold text-xl">100%</div>
+            <div className="text-gray-400 text-sm">paiement sécurisé</div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 pb-12">
+        <h2 className="text-3xl font-bold mb-8 text-center">Petites annonces GP</h2>
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {ads.map((ad) => (
+            <div key={ad.id} className="bg-gray-900 rounded-lg p-6 border border-gray-800">
+              <div className="flex justify-between items-start mb-3">
+                <h3 className="font-bold text-lg">{ad.title}</h3>
+                <span className="text-red-600 font-bold text-xl">{ad.price}</span>
+              </div>
+              <p className="text-gray-400 mb-4 text-sm">{ad.description}</p>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-500 text-xs">{ad.date}</span>
+                <button 
+                  onClick={() => openWhatsApp(ad.whatsapp, `Bonjour, je suis intéressé par votre annonce: ${ad.title} à ${ad.price}`)}
+                  className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-1"
+                >
+                  <MessageCircle size={16} />
+                  Contacter
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="bg-gray-900 rounded-lg p-6 max-w-2xl mx-auto border border-gray-800">
+          <h3 className="text-2xl font-bold mb-6 text-center">Proposer une annonce</h3>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              type="text"
+              placeholder="Titre de l'annonce"
+              value={formData.title}
+              onChange={(e) => setFormData({...formData, title: e.target.value})}
+              className="w-full bg-black border border-gray-700 rounded-lg px-4 py-3 text-white"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Prix"
+              value={formData.price}
+              onChange={(e) => setFormData({...formData, price: e.target.value})}
+              className="w-full bg-black border border-gray-700 rounded-lg px-4 py-3 text-white"
+              required
+            />
+            <textarea
+              placeholder="Description"
+              value={formData.description}
+              onChange={(e) => setFormData({...formData, description: e.target.value})}
+              className="w-full bg-black border border-gray-700 rounded-lg px-4 py-3 text-white h-24"
+              required
+            />
+            <input
+              type="text"
+              placeholder="WhatsApp : 59069050582"
+              value={formData.whatsapp}
+              onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
+              className="w-full bg-black border border-gray-700 rounded-lg px-4 py-3 text-white"
+              required
+            />
+            <button 
+              type="submit"
+              className="w-full bg-red-600 hover:bg-red-700 py-3 rounded-lg font-bold text-lg"
+            >
+              Envoyer l'annonce
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div className="border-t border-gray-800 py-6 text-center text-gray-500 text-sm">
+        © 2026 FEFESHOP971 - Guadeloupe
+      </div>
+    </div>
+  );
 }
