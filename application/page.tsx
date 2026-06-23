@@ -2,7 +2,7 @@
 import { ArrowRight, Phone, Star } from "lucide-react";
 
 export default function Page() {
-  const WA = "https://wa.me/590690000000";
+  const WA = "https://wa.me/590690590582";
   
   return (
     <main className="min-h-screen bg-white">
